@@ -28,13 +28,18 @@
   </div>
 
   <script>
-    // 메시지 추가 함수
     function addMessage() {
       const input = document.getElementById("user-input");
       const messageContainer = document.getElementById("message-container");
       const messageText = input.value.trim();
 
       if (messageText !== "") {
+        const message = document.createElement("div");
+        message.style.padding = "0.5vh";
+        message.style.backgroundColor = "#ffffffbb";
+        message.style.borderRadius = "5px";
+        message.style.fontSize = "1.2vw";
+
         const now = new Date();
         const dateStr = now.toLocaleString("ko-KR", {
           year: "numeric", month: "2-digit", day: "2-digit",
@@ -42,54 +47,20 @@
           hour12: false
         });
 
-        const messageData = {
-          text: messageText,
-          timestamp: dateStr
-        };
+        message.innerHTML = `
+          <div>${messageText}</div>
+          <div style="font-size: 1.2vw; color: #555; margin-top: 0.3vh;">${dateStr}</div>
+        `;
 
-        // 화면에 추가
-        renderMessage(messageData);
-
-        // 저장
-        saveMessage(messageData);
+        messageContainer.prepend(message);
 
         input.value = "";
         messageContainer.scrollTop = 0;
       }
     }
 
-    // 메시지를 HTML로 표시
-    function renderMessage(data) {
-      const messageContainer = document.getElementById("message-container");
-      const message = document.createElement("div");
-      message.style.padding = "0.5vh";
-      message.style.backgroundColor = "#ffffffbb";
-      message.style.borderRadius = "5px";
-      message.style.fontSize = "1.2vw";
-      message.innerHTML = `
-        <div>${data.text}</div>
-        <div style="font-size: 1.2vw; color: #555; margin-top: 0.3vh;">${data.timestamp}</div>
-      `;
-      messageContainer.prepend(message);
-    }
-
-    // 저장
-    function saveMessage(data) {
-      const existing = JSON.parse(localStorage.getItem("messages") || "[]");
-      existing.push(data);
-      localStorage.setItem("messages", JSON.stringify(existing));
-    }
-
-    // 저장된 메시지 불러오기
-    function loadMessages() {
-      const saved = JSON.parse(localStorage.getItem("messages") || "[]");
-      saved.forEach(renderMessage);
-    }
-
-    // 엔터 키 입력 처리
+    // ⏎ 엔터 키 입력 처리
     document.addEventListener("DOMContentLoaded", () => {
-      loadMessages();
-
       const input = document.getElementById("user-input");
       input.addEventListener("keypress", function (e) {
         if (e.key === "Enter") {
