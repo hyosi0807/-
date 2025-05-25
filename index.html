@@ -6,63 +6,55 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <div id="e__14">
-    <div id="e__15">오픈 마인드</div>
-    <div id="e__16">사이트 소개</div>
-    <div id="e__17">롤링페이퍼</div>
-    <div id="e__18"></div>
-    <div id="e__19">
-      <div id="message-container"></div>
-      <div id="input-box">
-        <input type="text" id="user-input" placeholder="당신의 이야기를 들려주세요" />
-        <button onclick="addMessage()">등록</button>
-      </div>
-    </div>
-    <div id="e__111">
-      이 사이트는 게임을 플레이해본<br />사람들이 우울증을 치료하는<br />
-      과정을 공유하고 정보를<br /> 얻을 수 있는 장소입니다<br />편하게 이용해주세요
-    </div>
+   <div id="e__14">
+   <div id="e__15"> 오픈 마인드</div>
+   <div id="e__16"> 사이트 소개</div>
+   <div id="e__17"> 롤링페이퍼</div>
+   <div id="e__18"> </div>
+   <div id="e__19">
+  <div id="message-container"></div>
+  <div id="input-box">
+    <input type="text" id="user-input" placeholder="당신의 이야기를 들려주세요" />
+    <button onclick="addMessage()">등록</button>
   </div>
-
+</div>
+   <div id="e__111"> 이 사이트는 게임을 플레이해본<br />사람들이 우울증을 치료하는<br />과정을 공유하고 정보를<br /> 얻을수 있는 장소입니다<br />편하게 이용해주세요</div>
+ </div>
   <script>
     function addMessage() {
-      const input = document.getElementById("user-input");
-      const messageContainer = document.getElementById("message-container");
-      const messageText = input.value.trim();
+  const input = document.getElementById("user-input");
+  const messageContainer = document.getElementById("message-container");
+  const messageText = input.value.trim();
 
-      if (messageText !== "") {
-        const message = document.createElement("div");
-        message.style.padding = "0.5vh";
-        message.style.backgroundColor = "#ffffffbb";
-        message.style.borderRadius = "5px";
-        message.style.fontSize = "1.2vw";
+  if (messageText !== "") {
+    const message = document.createElement("div");
+    message.style.padding = "0.5vh";
+    message.style.backgroundColor = "#ffffffbb";
+    message.style.borderRadius = "5px";
+    message.style.fontSize = "1.2vw";
 
-        const now = new Date();
-        const dateStr = now.toLocaleString("ko-KR", {
-          year: "numeric", month: "2-digit", day: "2-digit",
-          hour: "2-digit", minute: "2-digit", second: "2-digit",
-          hour12: false
-        });
-
-        message.innerHTML = `
-          <div>${messageText}</div>
-          <div style="font-size: 0.8vw; color: #555; margin-top: 0.3vh;">${dateStr}</div>
-        `;
-
-        messageContainer.prepend(message);
-        input.value = "";
-        messageContainer.scrollTop = 0;
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      document.getElementById("user-input").addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-          event.preventDefault();
-          addMessage();
-        }
-      });
+    // 현재 날짜 생성
+    const now = new Date();
+    const dateStr = now.toLocaleString("ko-KR", {
+      year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", second: "2-digit",
+      hour12: false
     });
+
+    // 글 + 날짜 표시
+    message.innerHTML = `
+      <div>${messageText}</div>
+      <div style="font-size: 1.2vw; color: #555; margin-top: 0.3vh;">${dateStr}</div>
+    `;
+
+    // ✅ 상단에 삽입
+    messageContainer.prepend(message);
+
+    input.value = "";
+    messageContainer.scrollTop = 0; // 스크롤을 맨 위로
+    
+  }
+}
   </script>
 </body>
 </html>
